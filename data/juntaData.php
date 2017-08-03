@@ -1,35 +1,31 @@
 <?php
 
 include_once 'data.php';
-include '../domain/bull.php';
+include '../domain/junta.php';
 
-class BullData extends Data {
+class JuntaData extends Data {
 
-    public function insertTBBull($bull) {
+    public function insertTBJunta($junta) {
+
         $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
         $conn->set_charset('utf8');
 
-        //Get the last id
-        $queryGetLastId = "SELECT MAX(idtbbull) AS idtbbull  FROM tbbull";
-        $idCont = mysqli_query($conn, $queryGetLastId);
-        $nextId = 1;
 
-        if ($row = mysqli_fetch_row($idCont)) {
-            $nextId = trim($row[0]) + 1;
-        }
-        $queryInsert = "INSERT INTO tbbull VALUES (" . $nextId . ",'" .
-                $bull->getCodeTBBull() . "','" .
-                $bull->getNameTBBull() . "','" .
-                $bull->getCommercialCaseTBBull() . "','" .
-                $bull->getBuyDateTBBull() . "'," .
-                $bull->getStrawsQuantityTBBull() . "," .
-                $bull->getStrawsPriceTBBull() . "," .
-                $bull->getRanchTBBull() . ");";
+        $queryInsert = "INSERT INTO tbjuntadirectiva VALUES ('" .
+                $junta->getIdTBJunta() . "','" .
+                $junta->getPresidenteTBJunta() . "','" .
+                $junta->getVicepresidenteJunta() . "','" .
+                $junta->getTesoreroJunta() . "','" .
+                $junta->getVocal1Junta() . "','" .
+                $junta->getVocal2Junta() . "','" .
+                $junta->getVocal3Junta() . "');";
 
         $result = mysqli_query($conn, $queryInsert);
         mysqli_close($conn);
         return $result;
     }
+
+
 
     public function updateTBBull($bull) {
         $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
